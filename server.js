@@ -2,10 +2,7 @@ const { WebcastPushConnection } = require('tiktok-live-connector');
 const express = require('express');
 const app = express();
 
-// ==========================================
-// ĐỔI CÁI NÀY thành username TikTok của bạn
 const TIKTOK_USERNAME = '@hadalahbekgame';
-// ==========================================
 
 let hangDoi = [];
 
@@ -15,13 +12,16 @@ tiktok.connect()
     .then(() => console.log('Da ket noi TikTok Live!'))
     .catch(err => console.log('Loi:', err.message));
 
+tiktok.on('comment', data => {
+    console.log(`${data.uniqueId} comment: ${data.comment}`);
+    hangDoi.push({ loai: 'comment', username: data.uniqueId });
+});
+
 tiktok.on('gift', data => {
     console.log(`${data.uniqueId} gui ${data.giftName}`);
-
     if (data.giftName === 'Rose') {
         hangDoi.push({ loai: 'spawn', username: data.uniqueId });
     }
-
     if (data.giftName === 'Sending love') {
         hangDoi.push({ loai: 'doidieu' });
     }
