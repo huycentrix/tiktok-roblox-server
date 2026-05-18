@@ -22,7 +22,7 @@ tiktok.on('gift', data => {
     if (data.giftName === 'Rose') {
         hangDoi.push({ loai: 'spawn', username: data.uniqueId });
     }
-    if (data.giftName === 'Sending love') {
+    if (data.giftName === 'Rosa') {
         hangDoi.push({ loai: 'doidieu' });
     }
 });
