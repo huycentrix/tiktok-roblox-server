@@ -14,14 +14,23 @@ tiktok.connect()
 
 tiktok.on('comment', data => {
     console.log(`${data.uniqueId} comment: ${data.comment}`);
-    hangDoi.push({ loai: 'comment', username: data.uniqueId });
+
+    // Tách từ đầu tiên trong comment làm username
+    const words = data.comment.trim().split(/\s+/);
+    const username = words[0];
+
+    if (username && username.length > 0) {
+        hangDoi.push({ loai: 'comment', username: username });
+    }
 });
 
 tiktok.on('gift', data => {
     console.log(`${data.uniqueId} gui ${data.giftName}`);
+
     if (data.giftName === 'Rose') {
         hangDoi.push({ loai: 'spawn', username: data.uniqueId });
     }
+
     if (data.giftName === 'Rosa') {
         hangDoi.push({ loai: 'doidieu' });
     }
